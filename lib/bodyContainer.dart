@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class bodyContainer extends StatefulWidget {
@@ -15,19 +13,25 @@ class _bodyContainerState extends State<bodyContainer> {
 
   String totalQuestions = '';
 
-  String questionNumber = '';
+  String questionNumber = '1';
 
   String question = '';
 
-  Random pick = Random();
+  String answers = '';
 
   _buttonPressed(String action){
     setState(() {
-      if (action == 'next'){
+      if (action == 'next' && (int.parse(questionNumber)) < int.parse(totalQuestions)){
         value = (int.parse(value)+1).toString();
+        int parsedDigit = int.parse(questionNumber);
+        parsedDigit++;
+        questionNumber = parsedDigit.toString();
       }
-      if ( action == 'false'){
+      if ( action == 'previous' && (int.parse(questionNumber)) > 1){
         value = (int.parse(value)-1).toString();
+        int parsedDigit = int.parse(questionNumber);
+        parsedDigit--;
+        questionNumber = parsedDigit.toString();
       }
     });
   }
@@ -78,10 +82,22 @@ class _bodyContainerState extends State<bodyContainer> {
 
     totalQuestions = questionsAndAnswers.length.toString();
 
-    setState(() {
-      question = questionsAndAnswers.keys.elementAt(int.parse(value));
-      questionNumber = (int.parse(value)).toString();
-    });
+    if (int.parse(value) >= 0){
+      setState(() {
+        question = questionsAndAnswers.keys.elementAt(int.parse(value));
+
+        if (answers == questionsAndAnswers.values.elementAt(int.parse(value)).toString()){
+          debugPrint('Correct');
+        }
+        else{
+          debugPrint('Incorrect');
+        }
+
+      });
+    }
+    else{
+      //do nothing
+    }
 
     return question;
   }
@@ -119,7 +135,11 @@ class _bodyContainerState extends State<bodyContainer> {
             height: 30,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                _buttonPressed('true');
+              });
+            },
             child: Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
@@ -143,7 +163,11 @@ class _bodyContainerState extends State<bodyContainer> {
             height: 16,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                _buttonPressed('false');
+              });
+            },
             child: Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
@@ -171,7 +195,11 @@ class _bodyContainerState extends State<bodyContainer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                onTap:(){_buttonPressed('previous');},
+                onTap:(){
+                  setState(() {
+                    _buttonPressed('previous');
+                  });
+                 },
                 child: Container(
                   child: Row(
                     children: [
