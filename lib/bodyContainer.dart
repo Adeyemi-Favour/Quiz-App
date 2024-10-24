@@ -17,7 +17,9 @@ class _bodyContainerState extends State<bodyContainer> {
 
   String question = '';
 
-  String answers = '';
+  bool? answers;
+
+  String playerScore = '0';
 
   _buttonPressed(String action){
     setState(() {
@@ -34,6 +36,26 @@ class _bodyContainerState extends State<bodyContainer> {
         questionNumber = parsedDigit.toString();
       }
     });
+  }
+
+  _answerButton (String ans){
+    int score = int.parse(playerScore);
+    if (ans == answers.toString()){
+      score++;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Correct Answer"),
+        duration: Duration(seconds: 1),
+      ));
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Incorrect, Try Again"),
+        duration: Duration(seconds: 1),
+        // action: SnackBarAction(label: 'Try Again', onPressed: hideCurrentSnackBar),
+      ));
+    }
+    playerScore = score.toString();
+    return playerScore;
   }
 
   _questions() {
@@ -86,12 +108,14 @@ class _bodyContainerState extends State<bodyContainer> {
       setState(() {
         question = questionsAndAnswers.keys.elementAt(int.parse(value));
 
-        if (answers == questionsAndAnswers.values.elementAt(int.parse(value)).toString()){
-          debugPrint('Correct');
-        }
-        else{
-          debugPrint('Incorrect');
-        }
+        answers = questionsAndAnswers.values.elementAt(int.parse(value));
+
+        // if (answers == questionsAndAnswers.values.elementAt(int.parse(value)).toString()){
+        //   debugPrint('Correct');
+        // }
+        // else{
+        //   debugPrint('Incorrect');
+        // }
 
       });
     }
@@ -115,6 +139,17 @@ class _bodyContainerState extends State<bodyContainer> {
           SizedBox(
             height: 30,
           ),
+          // Container(
+          //   alignment: Alignment.center,
+          //   child: Text(
+          //     'Score: $playerScore',
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          // ),SizedBox(
+          //   height: 30,
+          // ),
           Container(alignment: Alignment.centerLeft,
               child: Text(
             'Question: $questionNumber out of $totalQuestions',
@@ -137,19 +172,14 @@ class _bodyContainerState extends State<bodyContainer> {
           InkWell(
             onTap: () {
               setState(() {
-                _buttonPressed('true');
+                _answerButton('true');
               });
             },
             child: Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                border: Border(
-                  top: BorderSide(color: Colors.grey),
-                  bottom: BorderSide(color: Colors.grey),
-                  left: BorderSide(color: Colors.grey),
-                  right: BorderSide(color: Colors.grey),
-                ),
+                border: Border.all(color: Colors.grey),
               ),
               width: MediaQuery.of(context).size.width,
               child: Text(
@@ -165,19 +195,14 @@ class _bodyContainerState extends State<bodyContainer> {
           InkWell(
             onTap: () {
               setState(() {
-                _buttonPressed('false');
+                _answerButton('false');
               });
             },
             child: Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                border: Border(
-                  top: BorderSide(color: Colors.grey),
-                  bottom: BorderSide(color: Colors.grey),
-                  left: BorderSide(color: Colors.grey),
-                  right: BorderSide(color: Colors.grey),
-                ),
+                border: Border.all(color: Colors.grey),
               ),
               width: MediaQuery.of(context).size.width,
               child: Text(
