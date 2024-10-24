@@ -139,17 +139,17 @@ class _bodyContainerState extends State<bodyContainer> {
           SizedBox(
             height: 30,
           ),
-          // Container(
-          //   alignment: Alignment.center,
-          //   child: Text(
-          //     'Score: $playerScore',
-          //     style: TextStyle(
-          //       fontSize: 20,
-          //     ),
-          //   ),
-          // ),SizedBox(
-          //   height: 30,
-          // ),
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              'Score: $playerScore',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ),SizedBox(
+            height: 30,
+          ),
           Container(alignment: Alignment.centerLeft,
               child: Text(
             'Question: $questionNumber out of $totalQuestions',
