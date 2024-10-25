@@ -11,7 +11,7 @@ class _bodyContainerState extends State<bodyContainer> {
 
   String value = '0';
 
-  String totalQuestions = '';
+  int totalQuestions = 0;
 
   String questionNumber = '1';
 
@@ -23,7 +23,7 @@ class _bodyContainerState extends State<bodyContainer> {
 
   _buttonPressed(String action){
     setState(() {
-      if (action == 'next' && (int.parse(questionNumber)) < int.parse(totalQuestions)){
+      if (action == 'next' && (int.parse(questionNumber)) < totalQuestions){
         value = (int.parse(value)+1).toString();
         int parsedDigit = int.parse(questionNumber);
         parsedDigit++;
@@ -47,6 +47,10 @@ class _bodyContainerState extends State<bodyContainer> {
         duration: Duration(seconds: 1),
         backgroundColor: Colors.green,
       ));
+      value = (int.parse(value)+1).toString();
+      int parsedDigit = int.parse(questionNumber);
+      parsedDigit++;
+      questionNumber = parsedDigit.toString();
     }
     else{
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -54,6 +58,10 @@ class _bodyContainerState extends State<bodyContainer> {
         duration: Duration(seconds: 1),
         backgroundColor: Colors.redAccent,
       ));
+      value = (int.parse(value)+1).toString();
+      int parsedDigit = int.parse(questionNumber);
+      parsedDigit++;
+      questionNumber = parsedDigit.toString();
     }
     playerScore = score.toString();
     return playerScore;
@@ -103,7 +111,7 @@ class _bodyContainerState extends State<bodyContainer> {
       "Is artificial intelligence capable of human-level decision-making?": false,
     };
 
-    totalQuestions = questionsAndAnswers.length.toString();
+    totalQuestions = questionsAndAnswers.length;
 
     if (int.parse(value) >= 0){
       setState(() {
@@ -117,7 +125,6 @@ class _bodyContainerState extends State<bodyContainer> {
     }
 
     return question;
-    return totalQuestions;
   }
 
   @override
@@ -144,11 +151,18 @@ class _bodyContainerState extends State<bodyContainer> {
           // ),SizedBox(
           //   height: 30,
           // ),
-          Container(alignment: Alignment.centerLeft,
-              child: Text(
-            'Question: $questionNumber out of $totalQuestions',
-            style: TextStyle(),
-          )),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  child: Text(
+                'Question: $questionNumber out of $totalQuestions',
+                style: TextStyle(),
+              )),
+              Container(
+                child: Text('Score: $playerScore'),
+              )
+            ],
+          ),
           Container(
             height: 100,
             width: MediaQuery.of(context).size.width,
