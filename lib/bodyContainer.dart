@@ -52,7 +52,7 @@ class _bodyContainerState extends State<bodyContainer> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Incorrect, Try Again"),
         duration: Duration(seconds: 1),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.redAccent,
       ));
     }
     playerScore = score.toString();
