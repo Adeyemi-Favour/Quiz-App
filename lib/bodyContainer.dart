@@ -45,13 +45,14 @@ class _bodyContainerState extends State<bodyContainer> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Correct Answer"),
         duration: Duration(seconds: 1),
+        backgroundColor: Colors.green,
       ));
     }
     else{
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Incorrect, Try Again"),
         duration: Duration(seconds: 1),
-        // action: SnackBarAction(label: 'Try Again', onPressed: hideCurrentSnackBar),
+        backgroundColor: Colors.red,
       ));
     }
     playerScore = score.toString();
@@ -109,14 +110,6 @@ class _bodyContainerState extends State<bodyContainer> {
         question = questionsAndAnswers.keys.elementAt(int.parse(value));
 
         answers = questionsAndAnswers.values.elementAt(int.parse(value));
-
-        // if (answers == questionsAndAnswers.values.elementAt(int.parse(value)).toString()){
-        //   debugPrint('Correct');
-        // }
-        // else{
-        //   debugPrint('Incorrect');
-        // }
-
       });
     }
     else{
@@ -124,6 +117,7 @@ class _bodyContainerState extends State<bodyContainer> {
     }
 
     return question;
+    return totalQuestions;
   }
 
   @override
