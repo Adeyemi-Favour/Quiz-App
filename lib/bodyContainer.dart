@@ -47,10 +47,14 @@ class _bodyContainerState extends State<bodyContainer> {
         duration: Duration(seconds: 1),
         backgroundColor: Colors.green,
       ));
-      value = (int.parse(value)+1).toString();
-      int parsedDigit = int.parse(questionNumber);
-      parsedDigit++;
-      questionNumber = parsedDigit.toString();
+      if (parsedDigit < totalQuestions){
+        value = (int.parse(value)+1).toString();
+        parsedDigit++;
+        questionNumber = parsedDigit.toString();
+      }
+      else{
+        //do nothing
+      }
     }
     else{
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -58,10 +62,14 @@ class _bodyContainerState extends State<bodyContainer> {
         duration: Duration(seconds: 1),
         backgroundColor: Colors.redAccent,
       ));
-      value = (int.parse(value)+1).toString();
-      int parsedDigit = int.parse(questionNumber);
-      parsedDigit++;
-      questionNumber = parsedDigit.toString();
+     if (parsedDigit < totalQuestions){
+        value = (int.parse(value)+1).toString();
+        parsedDigit++;
+        questionNumber = parsedDigit.toString();
+      }
+      else{
+        //do nothing
+      }
     }
     playerScore = score.toString();
     return playerScore;
