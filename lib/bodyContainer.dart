@@ -56,6 +56,13 @@ class _bodyContainerState extends State<bodyContainer> {
         //do nothing
       }
     }
+    else if ((ans == answers.toString() || ans != answers.toString()) && int.parse(questionNumber) == totalQuestions){
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("You have answered all questions"),
+            duration: Duration(seconds: 1),
+            backgroundColor: Colors.black,
+          ));
+    }
     else{
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Incorrect, Try Again"),
