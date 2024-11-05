@@ -40,13 +40,14 @@ class _bodyContainerState extends State<bodyContainer> {
 
   _answerButton (String ans){
     int score = int.parse(playerScore);
-    if (ans == answers.toString()){
+    if (ans == answers.toString() && (int.parse(questionNumber) < totalQuestions)){
       score++;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Correct Answer"),
         duration: Duration(seconds: 1),
         backgroundColor: Colors.green,
       ));
+      int parsedDigit = int.parse(questionNumber);
       if (parsedDigit < totalQuestions){
         value = (int.parse(value)+1).toString();
         parsedDigit++;
@@ -69,7 +70,8 @@ class _bodyContainerState extends State<bodyContainer> {
         duration: Duration(seconds: 1),
         backgroundColor: Colors.redAccent,
       ));
-     if (parsedDigit < totalQuestions){
+      int parsedDigit = int.parse(questionNumber);
+      if (parsedDigit < totalQuestions){
         value = (int.parse(value)+1).toString();
         parsedDigit++;
         questionNumber = parsedDigit.toString();
@@ -77,11 +79,12 @@ class _bodyContainerState extends State<bodyContainer> {
       else{
         //do nothing
       }
+
     }
     playerScore = score.toString();
     return playerScore;
   }
-
+  
   _questions() {
     Map<String, bool> questionsAndAnswers = {
       "Is the Great Wall of China visible from space?": false,
